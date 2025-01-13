@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoLレーンルーレット</title>
+    <style>
+        body {
+            font-family: 'Rounded M+ 1c', sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .input-container, .shortcut-container {
+            margin: 10px 0;
+        }
+        .input-container input {
+            margin: 5px;
+            padding: 8px;
+            width: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .shortcut-container button {
+            padding: 5px 10px;
+            margin: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>LoLレーンルーレット</h1>
+    <div class="shortcut-container">
+    </a>ショートカット
+</div>
+        <button onclick="fillName('ありす')">ありす</button>
+        <button onclick="fillName('ラルラリラ')">らる</button>
+        <button onclick="fillName('キチシン')">キチシン</button>
+        <button onclick="fillName('和菓子')">和菓子</button>
+        <button onclick="fillName('たこやきちゃ')">たこちゃ</button>
+        <button onclick="fillName('なかのん')">なかのん</button>
+        <button onclick="fillName('いくら')">いくら</button>
+    </div>
+    <div class="input-container">
+        <input type="text" id="name1" placeholder="名前 1">
+        <input type="text" id="name2" placeholder="名前 2">
+        <input type="text" id="name3" placeholder="名前 3">
+        <input type="text" id="name4" placeholder="名前 4">
+        <input type="text" id="name5" placeholder="名前 5">
+    </div>
+    <button onclick="startRoulette()">スタート</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function fillName(name) {
+            for (let i = 1; i <= 5; i++) {
+                const input = document.getElementById(`name${i}`);
+                if (!input.value) {
+                    input.value = name;
+                    break;
+                }
+            }
+        }
+
+        function startRoulette() {
+            const roles = ["top", "jg", "mid", "adc", "sup"];
+            const names = [];
+
+            // 入力された名前を配列に格納
+            for (let i = 1; i <= 5; i++) {
+                const name = document.getElementById(`name${i}`).value.trim();
+                if (name) {
+                    names.push(name);
+                }
+            }
+
+            // 結果表示用の要素をクリア
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+
+            if (names.length < 5) {
+                // 名前が4つ以下の場合、NaNを表示
+                resultDiv.innerHTML = "<p>人数の都合上、NaNを表示します。</p>";
+                roles.forEach(role => {
+                    resultDiv.innerHTML += `<p>${role}: NaN</p>`;
+                });
+            } else {
+                // シャッフルして名前をロールに割り当て
+                const shuffledNames = names.sort(() => Math.random() - 0.5);
+                roles.forEach((role, index) => {
+                    resultDiv.innerHTML += `<p>${role}: ${shuffledNames[index]}</p>`;
+                });
+            }
+        }
+    </script>
+</body>
+</html>
