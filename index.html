@@ -58,6 +58,7 @@
     <h1>LoLレーンルーレット</h1>
     <div class="shortcut-container">
         </a>ショートカット
+        </div>
         <button onclick="fillName('ありす')">ありす</button>
         <button onclick="fillName('ラルラリラ')">らる</button>
         <button onclick="fillName('キチシン')">キチシン</button>
@@ -101,8 +102,9 @@
             }
 
             // 不足分をNaNで埋める
-            while (names.length < 5) {
-                names.push("NaN");
+            const fullNames = [...names];
+            while (fullNames.length < 5) {
+                fullNames.push("NaN");
             }
 
             // シャッフルして名前をロールに割り当て
