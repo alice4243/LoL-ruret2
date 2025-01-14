@@ -57,8 +57,7 @@
 <body>
     <h1>LoLレーンルーレット</h1>
     <div class="shortcut-container">
-    </a>ショートカット
-</div>
+        </a>ショートカット
         <button onclick="fillName('ありす')">ありす</button>
         <button onclick="fillName('ラルラリラ')">らる</button>
         <button onclick="fillName('キチシン')">キチシン</button>
@@ -101,23 +100,21 @@
                 }
             }
 
+            // 不足分をNaNで埋める
+            while (names.length < 5) {
+                names.push("NaN");
+            }
+
+            // シャッフルして名前をロールに割り当て
+            const shuffledNames = names.sort(() => Math.random() - 0.5);
+
             // 結果表示用の要素をクリア
             const resultDiv = document.getElementById("result");
             resultDiv.innerHTML = "";
 
-            if (names.length < 5) {
-                // 名前が4つ以下の場合、NaNを表示
-                resultDiv.innerHTML = "<p>人数の都合上、NaNを表示します。</p>";
-                roles.forEach(role => {
-                    resultDiv.innerHTML += `<p>${role}: NaN</p>`;
-                });
-            } else {
-                // シャッフルして名前をロールに割り当て
-                const shuffledNames = names.sort(() => Math.random() - 0.5);
-                roles.forEach((role, index) => {
-                    resultDiv.innerHTML += `<p>${role}: ${shuffledNames[index]}</p>`;
-                });
-            }
+            roles.forEach((role, index) => {
+                resultDiv.innerHTML += `<p>${role}: ${shuffledNames[index]}</p>`;
+            });
         }
     </script>
 </body>
