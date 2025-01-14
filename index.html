@@ -93,6 +93,7 @@
             const roles = ["top", "jg", "mid", "adc", "sup"];
             const names = [];
 
+
             // 入力された名前を配列に格納
             for (let i = 1; i <= 5; i++) {
                 const name = document.getElementById(`name${i}`).value.trim();
@@ -101,19 +102,21 @@
                 }
             }
 
-             // 不足分をNaNで埋める
+            // 不足分をNaNで埋める
             while (names.length < 5) {
                 names.push("NaN");
             }
 
-            // 役割をシャッフル
+            // 名前と役割をシャッフル
+            const shuffledNames = names.sort(() => Math.random() - 0.5);
             const shuffledRoles = roles.sort(() => Math.random() - 0.5);
+
             const resultDiv = document.getElementById("result");
             resultDiv.innerHTML = "";
 
             // 役割と名前をマッピングして結果を表示
             shuffledRoles.forEach((role, index) => {
-                resultDiv.innerHTML += `<p>${role}: ${names[index]}</p>`;
+                resultDiv.innerHTML += `<p>${role}: ${shuffledNames[index]}</p>`;
             });
         }
     </script>
