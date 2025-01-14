@@ -101,21 +101,19 @@
                 }
             }
 
-            // 不足分をNaNで埋める
-            const fullNames = [...names];
-            while (fullNames.length < 5) {
-                fullNames.push("NaN");
+             // 不足分をNaNで埋める
+            while (names.length < 5) {
+                names.push("NaN");
             }
 
-            // シャッフルして名前をロールに割り当て
-            const shuffledNames = names.sort(() => Math.random() - 0.5);
-
-            // 結果表示用の要素をクリア
+            // 役割をシャッフル
+            const shuffledRoles = roles.sort(() => Math.random() - 0.5);
             const resultDiv = document.getElementById("result");
             resultDiv.innerHTML = "";
 
-            roles.forEach((role, index) => {
-                resultDiv.innerHTML += `<p>${role}: ${shuffledNames[index]}</p>`;
+            // 役割と名前をマッピングして結果を表示
+            shuffledRoles.forEach((role, index) => {
+                resultDiv.innerHTML += `<p>${role}: ${names[index]}</p>`;
             });
         }
     </script>
