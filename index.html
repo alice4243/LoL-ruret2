@@ -37,6 +37,12 @@
         button:hover {
             background-color: #45a049;
         }
+        .fill-button {
+            background-color: #f44336;
+        }
+        .fill-button:hover {
+            background-color: #e53935;
+        }
         .result {
             margin-top: 20px;
             padding: 10px;
@@ -58,7 +64,6 @@
     <h1>LoLレーンルーレット</h1>
     <div class="shortcut-container">
         </a>ショートカット
-        </div>
         <button onclick="fillName('ありす')">ありす</button>
         <button onclick="fillName('ラルラリラ')">らる</button>
         <button onclick="fillName('キチシン')">キチシン</button>
@@ -74,6 +79,7 @@
         <input type="text" id="name4" placeholder="名前 4">
         <input type="text" id="name5" placeholder="名前 5">
     </div>
+    <button onclick="fillEmptySlots()" class="fill-button">空白を埋める</button>
     <button onclick="startRoulette()">スタート</button>
 
     <div class="result" id="result"></div>
@@ -89,10 +95,18 @@
             }
         }
 
+        function fillEmptySlots() {
+            for (let i = 1; i <= 5; i++) {
+                const input = document.getElementById(`name${i}`);
+                if (!input.value) {
+                    input.value = "●";
+                }
+            }
+        }
+
         function startRoulette() {
             const roles = ["top", "jg", "mid", "adc", "sup"];
             const names = [];
-
 
             // 入力された名前を配列に格納
             for (let i = 1; i <= 5; i++) {
@@ -107,15 +121,14 @@
                 names.push("NaN");
             }
 
-            // 名前と役割をシャッフル
+            // 名前をシャッフル
             const shuffledNames = names.sort(() => Math.random() - 0.5);
-            const shuffledRoles = roles.sort(() => Math.random() - 0.5);
 
             const resultDiv = document.getElementById("result");
             resultDiv.innerHTML = "";
 
             // 役割と名前をマッピングして結果を表示
-            shuffledRoles.forEach((role, index) => {
+            roles.forEach((role, index) => {
                 resultDiv.innerHTML += `<p>${role}: ${shuffledNames[index]}</p>`;
             });
         }
